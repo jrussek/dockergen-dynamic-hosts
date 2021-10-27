@@ -1,0 +1,12 @@
+# {{ json $local }}
+{{ $CurrentContainer := where $ "ID" .Docker.CurrentContainerID | first }}
+{{ $hostip := .Env.HOST_IP }}
+
+{{ range $host, $containers := groupByMulti $ "Env.VIRTUAL_HOST" "," }}
+
+{{ $host := trim $host }}
+{{ $is_regexp := hasPrefix "~" $host }}
+
+{{ $host }} {{ $CurrentContainer.ENV.HOST_IP }}
+
+{{ end }}
